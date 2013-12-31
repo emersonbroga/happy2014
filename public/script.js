@@ -102,7 +102,7 @@ function buildimg(pic) {
 
 function takePicture()
 {
-    // Put event listeners into place
+   // Put event listeners into place
     window.addEventListener("DOMContentLoaded", function() {
         // Grab elements, create settings, etc.
         var canvas = document.getElementById("canvas");
@@ -111,26 +111,35 @@ function takePicture()
             return;
         }
 
-        var    context = canvas.getContext("2d"),
+        var context = canvas.getContext("2d"),
             video = document.getElementById("video"),
-            videoObj = { "video": true },
+            videoObj = { "video": true, "audio":false },
             errBack = function(error) {
-                console.log("Video capture error: ", error.code); 
+                switchCameraButton('off');
+                alert('You should allow the access to the camera.');
             };
 
+
+           
         // Put video listeners into place
         if(navigator.getUserMedia) { // Standard
             navigator.getUserMedia(videoObj, function(stream) {
+                
+                switchCameraButton('on');
                 video.src = stream;
                 video.play();
             }, errBack);
         } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
             navigator.webkitGetUserMedia(videoObj, function(stream){
+
+                switchCameraButton('on');
                 video.src = window.webkitURL.createObjectURL(stream);
                 video.play();
             }, errBack);
         } else if(navigator.mozGetUserMedia) { // WebKit-prefixed
             navigator.mozGetUserMedia(videoObj, function(stream){
+
+                switchCameraButton('on');
                 video.src = window.URL.createObjectURL(stream);
                 video.play();
             }, errBack);
@@ -151,23 +160,16 @@ function takePicture()
 
 }
 
+function switchCameraButton( status )
+{
+    var $camContainer = $('#camera-container');
+    if(!$camContainer){
+        return;
+    }
 
-// var count=3;
-
-// //var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
-
-// function timer(context, canvas)
-// {
-//     count=count-1;
-//     if (count <= 0)
-//     {
-//         clearInterval(counter);
-//         //counter ended, do something here
-        
-//         return;
-//     }
-
-//     //Do code for showing the number of seconds here
-//     document.getElementById("timer").innerHTML=count + " secs"; // watch for spelling
-
-// }
+    if(status === 'on'){
+        $camContainer.removeClass('hide');
+    }else{
+        $camContainer.addClass('hide');
+    }
+}

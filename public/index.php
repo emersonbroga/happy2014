@@ -37,6 +37,8 @@
 
         <div class="row center">
             <h2>Send me a <strong>picture</strong>!</h2>
+            <small> You should allow the access to the camera</small>
+            <br/>
             <?php if( check_user_agent('mobile') ) : ?>
                 <form method="post" action="/saveimage.php" enctype="multipart/form-data" class="center"> 
                     <span class="col-md-7 col-md-offset-5">
@@ -46,10 +48,12 @@
                     <input type="submit" value="Send picture!" class="btn btn-large btn-success" />
                 </form>
             <?php else : ?>
+              <div id="camera-container" class="hide">
                 <video id="video" width="240" height="180" autoplay ></video>
                 <br/>
                 <button id="snap" class="btn btn-large btn-success" >Send picture!</button>
                 <canvas id="canvas" width="640" height="480" class="hide"></canvas>
+              </div>
             <?php endif; ?>
         </div>
         <hr/>
