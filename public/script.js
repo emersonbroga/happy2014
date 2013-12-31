@@ -105,8 +105,13 @@ function takePicture()
     // Put event listeners into place
     window.addEventListener("DOMContentLoaded", function() {
         // Grab elements, create settings, etc.
-        var canvas = document.getElementById("canvas"),
-            context = canvas.getContext("2d"),
+        var canvas = document.getElementById("canvas");
+
+        if(!canvas){
+            return;
+        }
+
+        var    context = canvas.getContext("2d"),
             video = document.getElementById("video"),
             videoObj = { "video": true },
             errBack = function(error) {

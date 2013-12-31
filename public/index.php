@@ -38,8 +38,11 @@
         <div class="row center">
             <h2>Send me a <strong>picture</strong>!</h2>
             <?php if( check_user_agent('mobile') ) : ?>
-                <form method="post" action="/saveimage.php" enctype="multipart/form-data">
-                    <input type="file" accept="image/*" name="file" id="file">
+                <form method="post" action="/saveimage.php" enctype="multipart/form-data" class="center"> 
+                    <span class="col-md-7 col-md-offset-5">
+                      <input type="file" accept="image/*" name="file" id="file">
+                    </span>
+                    <br/>
                     <input type="submit" value="Send picture!" class="btn btn-large btn-success" />
                 </form>
             <?php else : ?>

@@ -33,9 +33,22 @@
             $new_width = round($toWidth); 
             $new_height = round($height / $xscale); 
         } 
-        
+
+        $imgSize = getimagesize($originalImage); 
+        switch($imgSize['mime']) {
+            case 'image/jpg':
+            case 'image/jpeg':
+               $imageTmp = imagecreatefromjpeg($originalImage);
+            break;
+            case 'image/gif':
+               $imageTmp = imagecreatefromgif($originalImage);
+               break;
+            case 'image/png':
+               $imageTmp = imagecreatefrompng($originalImage); 
+               break;
+         }
+
         $imageResized = imagecreatetruecolor($new_width, $new_height); 
-        $imageTmp = imagecreatefrompng($originalImage); 
         imagecopyresampled($imageResized, $imageTmp, 0, 0, 0, 0, $new_width, $new_height, $width, $height); 
 
         echoHeaders();

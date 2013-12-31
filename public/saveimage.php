@@ -18,7 +18,6 @@ if(isset($_POST['img'])){
 	exit;
 	
 }else if(isset($_FILES['file'])){
-	
 	$success = file_put_contents($file, file_get_contents($_FILES['file']['tmp_name']) );
 	$success ? $file : 'Unable to save the file.';
 	header("Location: /");
